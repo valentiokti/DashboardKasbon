@@ -1,0 +1,6 @@
+gspread
+pandas
+google-auth
+numpy
+requests
+streamlit
