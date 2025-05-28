@@ -332,7 +332,9 @@ if st.button("Update Data"):
     with st.spinner("Update Data ke Google Sheet", show_time=True):
         final_google = result[result['akun'].str.contains("Driver")]
         final_google = final_google.sort_values('date')
-        final_google['Balance'] = (final_google['Debit'] - final_google['Credit']).cumsum()
+        final_google['Balance'] = (
+        final_google['Debit'] - final_google['Credit']  # pakai 'Kredit' jika sudah rename
+    ).groupby(final_google['akun']).cumsum()
 
         final_google['Saldo'] = np.where(final_google['Debit'] == 0, final_google['Credit'] * -1, 
                                                 np.where(final_google['Credit'] == 0, final_google['Debit'], np.nan))
